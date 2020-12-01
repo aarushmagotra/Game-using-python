@@ -3,6 +3,7 @@
 ###################
 
 import turtle as tr
+import time
 import random as r
 
 
@@ -52,13 +53,10 @@ ball.shapesize(1.2, 1.2)
 ball.color("red")
 ball.speed(1)
 ball.penup()
-ball_dir = r.choice([-150, -60, -45, -30, 30, 45, 60, 150])
 ballx = r.choice([0.5, -0.5])
 bally = r.choice([0.5, -0.5])
 # ball.setx(-428)
 # ball.sety(0)
-# ball.left(ball_dir)
-
 
 #######################
 #   EVENT FUNCTIONS
@@ -126,19 +124,23 @@ while True:
         ball.sety(-388)
         bounceY()
 
-    # if ball.xcor() < 485:
-    #     # ball.goto(0, 0)
-    #     bounceX()
+    if ball.xcor() > 485:
+        ball.goto(0, 0)
+        time.sleep(1)
+        ballx = r.choice([0.5, -0.5])
+        bally = r.choice([0.5, -0.5])
 
-    # if ball.xcor() < -485:
-    #     # ball.goto(0, 0)
-    #     bounceX()
+    if ball.xcor() < -485:
+        ball.goto(0, 0)
+        time.sleep(1)
+        ballx = r.choice([0.5, -0.5])
+        bally = r.choice([0.5, -0.5])
 
     # Paddle Collisions
-    if (ball.xcor() > 428 and (ball.ycor() < rPaddle.ycor()+65 and ball.ycor() > rPaddle.ycor()-65)):
+    if (ball.xcor() == 428 and (ball.ycor() < rPaddle.ycor()+65 and ball.ycor() > rPaddle.ycor()-65)):
         bounceX()
 
-    if ball.xcor() < -428 and (ball.ycor() < lPaddle.ycor()+65 and ball.ycor() > lPaddle.ycor()-65):
+    if ball.xcor() == -428 and (ball.ycor() < lPaddle.ycor()+65 and ball.ycor() > lPaddle.ycor()-65):
         bounceX()
 
     # Ball Movement
