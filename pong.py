@@ -55,7 +55,7 @@ ball.speed(1)
 ball.penup()
 ballx = r.choice([0.5, -0.5])
 bally = r.choice([0.5, -0.5])
-# ball.setx(-428)
+# ball.setx(472)
 # ball.sety(0)
 
 #######################
@@ -137,10 +137,10 @@ while True:
         bally = r.choice([0.5, -0.5])
 
     # Paddle Collisions
-    if (ball.xcor() == 428 and (ball.ycor() < rPaddle.ycor()+65 and ball.ycor() > rPaddle.ycor()-65)):
+    if ((ball.xcor() >= 428 and ball.xcor() <= 472) and (ball.ycor() <= rPaddle.ycor()+75 and ball.ycor() >= rPaddle.ycor()-75)):
         bounceX()
 
-    if ball.xcor() == -428 and (ball.ycor() < lPaddle.ycor()+65 and ball.ycor() > lPaddle.ycor()-65):
+    if (ball.xcor() <= -428 and ball.xcor() >= -472) and (ball.ycor() <= lPaddle.ycor()+75 and ball.ycor() >= lPaddle.ycor()-75):
         bounceX()
 
     # Ball Movement
