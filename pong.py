@@ -1,3 +1,4 @@
+
 ###################
 # IMPORTED MODULES
 ###################
@@ -65,7 +66,9 @@ cCircle.circle(100)
 # ball
 ball = tr.Turtle("circle")
 ball.shapesize(1.2, 1.2)
-ball.color("red")
+ball_colour = ["violet", "indigo", "cyan", "green", "yellow", "#d35400", "red", "#7cfc00", "#008b8b"]
+prevColor = r.choice(ball_colour)
+ball.color(prevColor)
 ball.speed(1)
 ball.penup()
 speed_lst = [0.1, -0.1]
@@ -123,20 +126,31 @@ def leftDown():
         lPaddle.sety(leftY-30)
 
 
+# Ball colour change on bouncing
+def colorChange():
+    global ball_colour
+    clr = r.choice(ball_colour)
+    ball.color(clr)
+    return clr
+
 # Bounce ball on X-axis
 def bounceX():
     global ballx
     ball.shapesize(0.8, 1.2)
+    cColor = colorChange()
     ballx *= -1
     ball.shapesize(1.2, 1.2)
+    return cColor
 
 
 # Bounce ball on Y-axis
 def bounceY():
     global bally
     ball.shapesize(1.2, 0.8)
+    cColor = colorChange()
     bally *= -1
     ball.shapesize(1.2, 1.2)
+    return cColor
 
 
 
@@ -167,12 +181,14 @@ while True:
     # Border Collision for top
     if ball.ycor() > 388:
         ball.sety(388)
-        bounceY()
+        nColor = bounceY()
+        prevColor = nColor
 
     # Border Collision for bottom
     if ball.ycor() < -388:
         ball.sety(-388)
-        bounceY()
+        nColor = bounceY()
+        prevColor = nColor
 
     # Border Collision for right
     if ball.xcor() > 485:
@@ -180,6 +196,7 @@ while True:
         time.sleep(1)
         ballx = r.choice(speed_lst)
         bally = r.choice(speed_lst)
+        
 
     # Border Collision for left
     if ball.xcor() < -485:
@@ -187,7 +204,7 @@ while True:
         time.sleep(1)
         ballx = r.choice(speed_lst)
         bally = r.choice(speed_lst)
-
+        
 
 
     # Paddle Collisions
@@ -195,11 +212,19 @@ while True:
 
     # Paddle Collision for right paddle
     if ((ball.xcor() >= 438 and ball.xcor()<=439) and (ball.ycor() <= rPaddle.ycor()+75 and ball.ycor() >= rPaddle.ycor()-75)):
-        bounceX()
+        nColor = bounceX()
+        rPaddle.color(prevColor)
+        prevColor = nColor
+        
+        
 
     # Paddle Collision for left paddle
     if (ball.xcor() <= -438 and ball.xcor()>=-439) and (ball.ycor() <= lPaddle.ycor()+75 and ball.ycor() >= lPaddle.ycor()-75):
-        bounceX()
+        nColor = bounceX()
+        lPaddle.color(prevColor)
+        prevColor = nColor
+        
+        
 
 
 
