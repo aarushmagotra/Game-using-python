@@ -34,14 +34,19 @@ head = tk.Label(start_screen, text = "PONG MENU", bg="grey", pady=50)
 head.config(font =("Courier", 35)) 
 head.pack()
 
-button1 = tk.Button(start_screen, text='Play', width=40, height=2, bg='white', fg='#000000', activebackground='#66ff66', font=25)
+
+
+button1 = tk.Button(start_screen, text='Play', width=40, height=2, bg='white', fg='#000000', activebackground='#66ff66', font=("",10, "italic bold underline"))
 button1.pack()
 
-button2 = tk.Button(start_screen, text='Difficulty', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=25)
+button2 = tk.Button(start_screen, text='Difficulty', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("",10, "italic bold underline"))
 button2.pack()
 
-button3 = tk.Button(start_screen, text='Exit', width=40, height=2, bg='white', fg='#000000', activebackground='#ff355e', font=25)
+button3 = tk.Button(start_screen, text='Exit', width=40, height=2, bg='white', fg='#000000', activebackground='#ff355e', font=("",10, "italic bold underline"))
 button3.pack()
+
+foot = tk.Label(start_screen, text = "Made by~ Muteen, Aarush & Arjun", bg='grey', font=("",9,'underline'))
+foot.pack(side="bottom", anchor='e')
 
 start_screen.mainloop()
 
