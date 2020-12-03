@@ -146,7 +146,7 @@ pause_txt.goto(-168, -50)
 # ball
 ball = tr.Turtle("circle")
 ball.shapesize(1.2, 1.2)
-ball_colour = ["#803790", "indigo", "cyan", "#66ff66", "#ffff66", "#ff9933", "#ff355e", "#7cfc00", "#ff3399" , "#50bfe6", "#c8c8cd"]
+ball_colour = ["#8a2be2", "#9955ee", "cyan", "#66ff66", "#ffff66", "#ff9933", "#ff355e", "#7cfc00", "#ff3399" , "#50bfe6", "#c8c8cd"]
 prevColor = r.choice(ball_colour)
 ball.color(prevColor)
 ball.speed(1)
