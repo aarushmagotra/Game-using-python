@@ -40,7 +40,7 @@ button1 = tk.Button(start_screen, text='Play', width=40, height=2, bg='white', f
 button1.pack()
 
 button2 = tk.Button(start_screen, text='Difficulty', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("",10, "italic bold underline"))
-button2.pack()
+button2.pack(pady=10)
 
 button3 = tk.Button(start_screen, text='Exit', width=40, height=2, bg='white', fg='#000000', activebackground='#ff355e', font=("",10, "italic bold underline"))
 button3.pack()
