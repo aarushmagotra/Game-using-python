@@ -20,16 +20,16 @@ bally = r.choice(speed_lst)
 pause = 0
 start_var = 0
 
+
+
+#######################
+# MAIN GAME FUNCTION
+#######################
+
 def game(p1="player1", p2="player2"):
     global ballx
     global bally
-    global pause
-    global start_var
-
-    #####################
-    # screen destruction
-    #####################
-          
+    global pause      
 
 
 
@@ -87,6 +87,7 @@ def game(p1="player1", p2="player2"):
     # PLAYERS INFO
     ####################
 
+    # player1 info
     player1 = tr.Turtle()
     player1.hideturtle()
     player1.color("white")
@@ -96,7 +97,7 @@ def game(p1="player1", p2="player2"):
     player1_score = 0
     
     
-
+    # player2 info
     player2 = tr.Turtle()
     player2.hideturtle()
     player2.color("white")
@@ -317,7 +318,7 @@ def game(p1="player1", p2="player2"):
             rPaddle.color(prevColor)
             player2.undo()
             player2.color(prevColor)
-            player2.write("Player2: {0}".format(player2_score), font=("Arial", 20, "italic"))
+            player2.write("{1}: {0}".format(player2_score, p2), font=("Arial", 20, "italic"))
             prevColor = nColor
             
             
@@ -328,10 +329,8 @@ def game(p1="player1", p2="player2"):
             lPaddle.color(prevColor)
             player1.undo()
             player1.color(prevColor)
-            player1.write("Player1: {0}".format(player1_score), font=("Arial", 20, "italic"))
-            prevColor = nColor
-            
-            
+            player1.write("{1}: {0}".format(player1_score, p1), font=("Arial", 20, "italic"))
+            prevColor = nColor                      
 
 
 
@@ -349,37 +348,47 @@ def game(p1="player1", p2="player2"):
     tr.done()    
 
 
+##############
+# EXIT GAME
+##############
 def quitGame():
     exit()
 
 
+############################
+# GUI MENUS FOR THE GAME
+############################
 
-############################
-#   START MENU FOR THE GAME
-############################
 
 
 #####################
-# PLAYER NAMES
+# FULL NAME SCREEN
 #####################
-
-# player names taker
-
-
 
 def names():
+
+    # player name taker
+    ###################
 
     def playerNames():
         player1_name = player1_Name.get()
         player2_name = player2_Name.get()
         name_screen.destroy()
+
+        # calling main game
+        #####################
         if len(player1_name) != 0 and len(player2_name) != 0:    
             game(player1_name, player2_name)
         elif len(player1_name) == 0 and len(player2_name) != 0:
             game(p2=player2_name)
         elif len(player2_name) == 0 and len(player1_name) != 0:
             game(p1=player1_name)
+        elif len(player1_name) == 0 and len(player2_name) == 0:
+            game()
 
+
+    # screen destruction
+    #######################
     global start_var
 
     if start_var == 0:
@@ -387,6 +396,12 @@ def names():
         start_screen.destroy()
     else:
         end_screen.destroy()
+
+
+
+    ##################
+    # Name Screen 
+    ##################
 
     name_screen = tk.Tk()
     name_screen.title("Enter Names:")
@@ -427,6 +442,10 @@ def names():
 
 
 
+###################
+# START SCREEN
+###################
+
 start_screen = tk.Tk(className=" PONG MENU")
 start_screen.configure(bg="grey")
 start_screen.geometry("600x400")
@@ -440,7 +459,7 @@ head_start.pack()
 button1_start = tk.Button(start_screen, text='Play', width=40, height=2, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), command = names, relief="flat")
 button1_start.pack()
 
-button2_start = tk.Button(start_screen, text='Difficulty', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("arial", 12, "bold italic"), relief="flat")
+button2_start = tk.Button(start_screen, text='Scores', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("arial", 12, "bold italic"), relief="flat")
 button2_start.pack(pady=10)
 
 button3_start = tk.Button(start_screen, text='Exit', width=40, height=2, bg='white', fg='#000000', activebackground='#ff355e', font=("arial", 12, "bold italic"), command = quitGame, relief="flat")
@@ -454,8 +473,9 @@ start_screen.mainloop()
 
 
 
-
-
+##################
+# END SCREEN
+##################
 
 while True:
     end_screen = tk.Tk()
@@ -465,14 +485,14 @@ while True:
     end_screen.minsize(600, 400)
     end_screen.maxsize(600, 400)
 
-    head_end = tk.Label(end_screen, text = "PONG MENU", bg="grey", pady=50) 
+    head_end = tk.Label(end_screen, text = "GAME OVER", bg="grey", pady=50) 
     head_end.config(font =("Courier", 35)) 
     head_end.pack()
 
     button1_end = tk.Button(end_screen, text='Play Again', width=40, height=2, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), command = names, relief="flat")
     button1_end.pack()
 
-    button2_end = tk.Button(end_screen, text='Difficulty', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("arial", 12, "bold italic"), relief="flat")
+    button2_end = tk.Button(end_screen, text='Scores', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("arial", 12, "bold italic"), relief="flat")
     button2_end.pack(pady=10)
 
     button3_end = tk.Button(end_screen, text='Exit', width=40, height=2, bg='white', fg='#000000', activebackground='#ff355e', font=("arial", 12, "bold italic"), command = quitGame, relief="flat")
