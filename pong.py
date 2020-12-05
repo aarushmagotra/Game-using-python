@@ -365,19 +365,21 @@ def quitGame():
 
 # player names taker
 
-def playerNames():
-    player1_name = player1_Name.get()
-    player2_name = player2_Name.get()
-    name_screen.destroy()
-    if len(player1_name) != 0 and len(playe2_name) != 0:    
-        game(player1_name, player2_name)
 
-    elif len(player1_name) == 0 and len(player2_name) != 0:
-        game(p2=player2_name)
-    elif len(player2_name) == 0 and len(player1_name) != 0:
-        game(p1=player1_name)
 
 def names():
+
+    def playerNames():
+        player1_name = player1_Name.get()
+        player2_name = player2_Name.get()
+        name_screen.destroy()
+        if len(player1_name) != 0 and len(player2_name) != 0:    
+            game(player1_name, player2_name)
+        elif len(player1_name) == 0 and len(player2_name) != 0:
+            game(p2=player2_name)
+        elif len(player2_name) == 0 and len(player1_name) != 0:
+            game(p1=player1_name)
+
     global start_var
 
     if start_var == 0:
@@ -404,13 +406,14 @@ def names():
     player_text1 = tk.Label(text="Enter player 1 name:", bg="grey", font=("Arial", 15, "italic"))
     player_text1.pack()
 
-    player1_Name = tk.Entry(text="enter",width=40, bd=6, relief="flat", textvariable=player1_var)
+    player1_Name = tk.Entry(width=40, bd=6, relief="flat", textvariable=player1_var)
     player1_Name.pack(pady=10)
+
 
     player_text2 = tk.Label(text="Enter player 2 name:", bg="grey", font=("Arial", 15, "italic"))
     player_text2.pack()
 
-    player2_Name = tk.Entry(text="enter",width=40, bd=6, relief="flat", textvariable=player2_var)
+    player2_Name = tk.Entry(width=40, bd=6, relief="flat", textvariable=player2_var)
     player2_Name.pack(pady=10)
 
     button_name = tk.Button(name_screen, text='Play', width=10, height=1, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), relief="flat", command=playerNames)
