@@ -15,7 +15,7 @@ import random as r
 # IMPORTANT VARIABLES
 ######################
 
-speed_lst = [0.3, -0.3]
+speed_lst = [0.4, -0.4]
 ballx = r.choice(speed_lst)
 bally = r.choice(speed_lst)
 pause = 0
@@ -27,13 +27,60 @@ start_var = 0
 # MAIN GAME FUNCTION
 #######################
 
-def game(p1="player1", p2="player2"):
+def game(p1="Player1", p2="Player2"):
 
     global ballx
     global bally
-    global pause      
+    global pause   
 
 
+    ##########################
+    # INFO SCREEN  
+    ##########################
+
+    # Destroy Screen
+    ##########################
+
+    def info_destroy():
+        info_screen.destroy()
+
+    info_screen = tk.Tk()
+
+    info_screen.title("INFORMATION")
+    info_screen.configure(bg="grey")
+
+    info_screen.geometry("600x400")
+    info_screen.minsize(600, 400)
+    info_screen.maxsize(600, 400)
+
+    
+    rules_head = tk.Label(info_screen, text="RULES:", bg="grey", font=("Courier", 30, "bold"))
+    rules_head.pack(pady=10)
+
+    rule1 = tk.Label(info_screen, text=">>> The player who scores 6 points first will WIN the game", bg="grey", font=("arial", 15, "italic"))
+    rule1.pack()
+
+
+    controls_head = tk.Label(info_screen, text="CONTROLS:", bg="grey", font=("Courier", 30, "bold"))
+    controls_head.pack(pady=20)
+
+    control1 = tk.Label(info_screen, text='1. Press UP(↑) and DOWN(↓) keys to move Right paddle', bg="grey", font=("arial", 15, "italic"))
+    control1.pack()
+
+    control1 = tk.Label(info_screen, text='2. Press "w" key and "s" key to move Left paddle', bg="grey", font=("arial", 15, "italic"))
+    control1.pack(pady=5)
+
+    control1 = tk.Label(info_screen, text='3. Press "p" to pause', bg="grey", font=("arial", 15, "italic"))
+    control1.pack()    
+
+    button_rules = tk.Button(info_screen, text='Play', width=10, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), command=info_destroy, relief="flat")
+    button_rules.pack(pady=25)
+
+    foot_rules = tk.Label(info_screen, text="Made By ~ Muteen, Aarush & Arjun", font=("Courier", 12 , "italic underline"), bg="grey")
+    foot_rules.pack(side="bottom", anchor="e")
+
+
+    info_screen.mainloop()
 
     ########################
     #   OBJECTS ON SCREEN
@@ -139,7 +186,7 @@ def game(p1="player1", p2="player2"):
     # ball
     ball = tr.Turtle("circle")
     ball.shapesize(1.2, 1.2)
-    ball_colour = ["#803790", "indigo", "cyan", "#66ff66", "#ffff66", "#ff9933", "#ff355e", "#7cfc00", "#ff3399" , "#50bfe6", "#c8c8cd"]
+    ball_colour = ["#803790", "cyan", "#66ff66", "#ffff66", "#ff9933", "#ff355e", "#7cfc00", "#ff3399" , "#50bfe6", "#c8c8cd"]
     prevColor = r.choice(ball_colour)
     ball.color(prevColor)
     ball.speed(1)
@@ -256,6 +303,9 @@ def game(p1="player1", p2="player2"):
     win.onkeypress(leftUp, "w")
     win.onkeypress(leftDown, "s")
     win.onkeypress(pauseGame, "p")
+    win.onkeypress(leftUp, "W")
+    win.onkeypress(leftDown, "S")
+    win.onkeypress(pauseGame, "P")
 
 
 
@@ -429,8 +479,8 @@ def viewScores():
             no_score_text = tk.Label(scoreScreen, text="NOTHING TO SHOW!!!", font=("courier", 40, "bold italic"), fg="red", bg="grey")
             no_score_text.pack(pady=150)
 
-    foot_start = tk.Label(scoreScreen, text="Made By ~ Muteen, Aarush & Arjun", font=("Courier", 12 , "italic underline"), bg="grey")
-    foot_start.pack(side="bottom", anchor="e")
+    foot_scores = tk.Label(scoreScreen, text="Made By ~ Muteen, Aarush & Arjun", font=("Courier", 12 , "italic underline"), bg="grey")
+    foot_scores.pack(side="bottom", anchor="e")
 
     scoreScreen.mainloop()
 
@@ -513,7 +563,7 @@ def names():
     player2_Name = tk.Entry(width=40, bd=6, relief="flat", textvariable=player2_var)
     player2_Name.pack(pady=10)
 
-    button_name = tk.Button(name_screen, text='Play', width=10, height=1, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), relief="flat", command=playerNames)
+    button_name = tk.Button(name_screen, text='Enter', width=10, height=1, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), relief="flat", command=playerNames)
     button_name.pack(pady=7)
 
     foot_name = tk.Label(name_screen, text="Made By ~ Muteen, Aarush & Arjun", font=("Courier", 12 , "italic underline"), bg="grey")
@@ -538,7 +588,7 @@ head_start = tk.Label(start_screen, text = "PONG MENU", bg="grey", pady=50)
 head_start.config(font =("Courier", 35)) 
 head_start.pack()
 
-button1_start = tk.Button(start_screen, text='Play', width=40, height=2, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), command = names, relief="flat")
+button1_start = tk.Button(start_screen, text='Start Game', width=40, height=2, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), command = names, relief="flat")
 button1_start.pack()
 
 button2_start = tk.Button(start_screen, text='Winner List', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("arial", 12, "bold italic"), command = viewScores, relief="flat")
@@ -571,7 +621,7 @@ while True:
     head_end.config(font =("Courier", 35)) 
     head_end.pack()
 
-    button1_end = tk.Button(end_screen, text='Play Again', width=40, height=2, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), command = names, relief="flat")
+    button1_end = tk.Button(end_screen, text='Restart', width=40, height=2, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), command = names, relief="flat")
     button1_end.pack()
 
     button2_end = tk.Button(end_screen, text='Winner List', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("arial", 12, "bold italic"), command = viewScores, relief="flat")
