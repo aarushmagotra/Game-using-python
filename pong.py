@@ -5,6 +5,7 @@
 
 import turtle as tr
 import tkinter as tk
+import csv
 import time
 import random as r
 
@@ -27,6 +28,7 @@ start_var = 0
 #######################
 
 def game(p1="player1", p2="player2"):
+
     global ballx
     global bally
     global pause      
@@ -337,15 +339,35 @@ def game(p1="player1", p2="player2"):
         # Ball Movement
         ################
 
+        if ball.xcor() == 0 and ball.ycor() == 0:
+            time.sleep(0.6)
+
         # Ball movement X-axis
         ball.setx(ball.xcor() + ballx)
 
         # Ball movement Y-axis
         ball.sety(ball.ycor() + bally)
-
     
+    #########################
+    # SCORE IN FILE
+    #########################
+    with open("scores.csv", "a") as scores_write:
+
+        write = csv.writer(scores_write)
+
+        if player1_score > player2_score:
+            score_lst = [p1, p2]
+        else:
+            score_lst = [p2, p1]        
+
+        write.writerow(score_lst)
+
+
+    # sreen termination
+    #######################
     win.bye()
-    tr.done()    
+    tr.done()
+
 
 
 ##############
@@ -353,6 +375,66 @@ def game(p1="player1", p2="player2"):
 ##############
 def quitGame():
     exit()
+
+
+
+#######################
+# VIEW SCORES
+#######################
+
+def viewScores():
+    scoreScreen = tk.Tk(className=" WINNER LIST")
+    scoreScreen.configure(bg="grey")
+    scoreScreen.geometry("600x400")
+    scoreScreen.minsize(600, 400)
+    scoreScreen.maxsize(600, 400)    
+
+    with open("scores.csv", "r") as Scores_file:
+        score_reader = csv.reader(Scores_file)
+
+        score_lst=[]
+        for elem in score_reader:
+            score_lst.append(elem)
+
+        if len(score_lst) != 0 :
+            head_frame = tk.Frame(scoreScreen,bg="grey")
+            head_frame.pack(side="top", anchor="w", pady=3)
+            win_label_text = tk.Label(head_frame, text="WINNER", bg="grey", font=("courier", 15, "bold"))
+            win_label_text.pack(side="left", padx=5)
+            vs_label_text = tk.Label(head_frame, text="V/S", bg="grey", font=("courier", 15, "bold"))
+            vs_label_text.pack(side="left",padx=100)
+            lose_label_text = tk.Label(head_frame, text="LOSER", bg="grey", font=("courier", 15, "bold"))
+            lose_label_text.pack(side="left")
+
+            lim = 0
+            for p_names in score_lst[::-1]:
+                
+                lim += 1
+                win = p_names[0]
+                lose = p_names[1]
+
+                if lim < 14: 
+                    player_frame = tk.Frame(scoreScreen, bg="grey")
+                    player_frame.pack(side="top", anchor="w", pady=1)
+                    win_name = tk.Label(player_frame, text=win, bg="grey", font=("courier", 15))
+                    win_name.pack(side="left", padx=5)
+                    vs_name = tk.Label(player_frame, text="V/S", bg="grey", font=("courier", 15))
+                    vs_name.pack(side="left",padx=100)
+                    lose_name = tk.Label(player_frame, text=lose, bg="grey", font=("courier", 15))
+                    lose_name.pack(side="left") 
+
+                else:
+                    break
+        else:
+            no_score_text = tk.Label(scoreScreen, text="NOTHING TO SHOW!!!", font=("courier", 40, "bold italic"), fg="red", bg="grey")
+            no_score_text.pack(pady=150)
+
+    foot_start = tk.Label(scoreScreen, text="Made By ~ Muteen, Aarush & Arjun", font=("Courier", 12 , "italic underline"), bg="grey")
+    foot_start.pack(side="bottom", anchor="e")
+
+    scoreScreen.mainloop()
+
+
 
 
 ############################
@@ -459,7 +541,7 @@ head_start.pack()
 button1_start = tk.Button(start_screen, text='Play', width=40, height=2, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), command = names, relief="flat")
 button1_start.pack()
 
-button2_start = tk.Button(start_screen, text='Scores', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("arial", 12, "bold italic"), relief="flat")
+button2_start = tk.Button(start_screen, text='Winner List', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("arial", 12, "bold italic"), command = viewScores, relief="flat")
 button2_start.pack(pady=10)
 
 button3_start = tk.Button(start_screen, text='Exit', width=40, height=2, bg='white', fg='#000000', activebackground='#ff355e', font=("arial", 12, "bold italic"), command = quitGame, relief="flat")
@@ -492,7 +574,7 @@ while True:
     button1_end = tk.Button(end_screen, text='Play Again', width=40, height=2, bg='white', fg='#000000', activebackground='#66ff66', font=("arial", 12, "bold italic"), command = names, relief="flat")
     button1_end.pack()
 
-    button2_end = tk.Button(end_screen, text='Scores', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("arial", 12, "bold italic"), relief="flat")
+    button2_end = tk.Button(end_screen, text='Winner List', width=40, height=2, bg='white', fg='#000000', activebackground='#ff9933', font=("arial", 12, "bold italic"), command = viewScores, relief="flat")
     button2_end.pack(pady=10)
 
     button3_end = tk.Button(end_screen, text='Exit', width=40, height=2, bg='white', fg='#000000', activebackground='#ff355e', font=("arial", 12, "bold italic"), command = quitGame, relief="flat")
