@@ -15,7 +15,7 @@ import random as r
 # IMPORTANT VARIABLES
 ######################
 
-speed_lst = [0.4, -0.4]
+speed_lst = [10, -10]
 ballx = r.choice(speed_lst)
 bally = r.choice(speed_lst)
 pause = 0
@@ -49,9 +49,9 @@ def game(p1="Player1", p2="Player2"):
     info_screen.title("INFORMATION")
     info_screen.configure(bg="grey")
 
-    info_screen.geometry("600x400")
-    info_screen.minsize(600, 400)
-    info_screen.maxsize(600, 400)
+    info_screen.geometry("800x500")
+    info_screen.minsize(800, 500)
+    info_screen.maxsize(800, 500)
 
     
     rules_head = tk.Label(info_screen, text="RULES:", bg="grey", font=("Courier", 30, "bold"))
@@ -397,11 +397,13 @@ def game(p1="Player1", p2="Player2"):
 
         # Ball movement Y-axis
         ball.sety(ball.ycor() + bally)
-    
+
+
+
     #########################
     # SCORE IN FILE
     #########################
-    with open("scores.csv", "a") as scores_write:
+    with open("scores.csv", "a+") as scores_write:
 
         write = csv.writer(scores_write)
 
@@ -416,7 +418,7 @@ def game(p1="Player1", p2="Player2"):
     # sreen termination
     #######################
     win.bye()
-    tr.done()
+    tr.done()   
 
 
 
@@ -435,9 +437,9 @@ def quitGame():
 def viewScores():
     scoreScreen = tk.Tk(className=" WINNER LIST")
     scoreScreen.configure(bg="grey")
-    scoreScreen.geometry("600x400")
-    scoreScreen.minsize(600, 400)
-    scoreScreen.maxsize(600, 400)    
+    scoreScreen.geometry("800x500")
+    scoreScreen.minsize(800, 500)
+    scoreScreen.maxsize(800, 500)    
 
     with open("scores.csv", "r") as Scores_file:
         score_reader = csv.reader(Scores_file)
@@ -458,23 +460,24 @@ def viewScores():
 
             lim = 0
             for p_names in score_lst[::-1]:
-                
-                lim += 1
-                win = p_names[0]
-                lose = p_names[1]
 
-                if lim < 14: 
-                    player_frame = tk.Frame(scoreScreen, bg="grey")
-                    player_frame.pack(side="top", anchor="w", pady=1)
-                    win_name = tk.Label(player_frame, text=win, bg="grey", font=("courier", 15))
-                    win_name.pack(side="left", padx=5)
-                    vs_name = tk.Label(player_frame, text="V/S", bg="grey", font=("courier", 15))
-                    vs_name.pack(side="left",padx=100)
-                    lose_name = tk.Label(player_frame, text=lose, bg="grey", font=("courier", 15))
-                    lose_name.pack(side="left") 
+                if len(p_names) != 0:                   
+                    lim += 1
+                    win = p_names[0]
+                    lose = p_names[1]
 
-                else:
-                    break
+                    if lim < 14: 
+                        player_frame = tk.Frame(scoreScreen, bg="grey")
+                        player_frame.pack(side="top", anchor="w", pady=1)
+                        win_name = tk.Label(player_frame, text=win, bg="grey", font=("courier", 15))
+                        win_name.pack(side="left", padx=5)
+                        vs_name = tk.Label(player_frame, text="V/S", bg="grey", font=("courier", 15))
+                        vs_name.pack(side="left",padx=100)
+                        lose_name = tk.Label(player_frame, text=lose, bg="grey", font=("courier", 15))
+                        lose_name.pack(side="left") 
+
+                    else:
+                        break
         else:
             no_score_text = tk.Label(scoreScreen, text="NOTHING TO SHOW!!!", font=("courier", 40, "bold italic"), fg="red", bg="grey")
             no_score_text.pack(pady=150)
@@ -539,9 +542,9 @@ def names():
     name_screen.title("Enter Names:")
     name_screen.configure(bg="grey")
 
-    name_screen.geometry("600x400")
-    name_screen.minsize(600, 400)
-    name_screen.maxsize(600, 400)
+    name_screen.geometry("800x500")
+    name_screen.minsize(800, 500)
+    name_screen.maxsize(800, 500)
 
 
     entry_text = tk.Label(text="Enter Names:", font=("Courier", 25), bg="grey")
@@ -580,9 +583,9 @@ def names():
 
 start_screen = tk.Tk(className=" PONG MENU")
 start_screen.configure(bg="grey")
-start_screen.geometry("600x400")
-start_screen.minsize(600, 400)
-start_screen.maxsize(600, 400)
+start_screen.geometry("800x500")
+start_screen.minsize(800, 500)
+start_screen.maxsize(800, 500)
 
 head_start = tk.Label(start_screen, text = "PONG MENU", bg="grey", pady=50) 
 head_start.config(font =("Courier", 35)) 
@@ -613,9 +616,9 @@ while True:
     end_screen = tk.Tk()
     end_screen.title("GAME OVER!!!")
     end_screen.configure(bg="grey")
-    end_screen.geometry("600x400")
-    end_screen.minsize(600, 400)
-    end_screen.maxsize(600, 400)
+    end_screen.geometry("800x500")
+    end_screen.minsize(800, 500)
+    end_screen.maxsize(800, 500)
 
     head_end = tk.Label(end_screen, text = "GAME OVER", bg="grey", pady=50) 
     head_end.config(font =("Courier", 35)) 
