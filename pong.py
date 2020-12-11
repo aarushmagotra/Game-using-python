@@ -15,7 +15,7 @@ import random as r
 # IMPORTANT VARIABLES
 ######################
 
-speed_lst = [10, -10]
+speed_lst = [3, -3]
 ballx = r.choice(speed_lst)
 bally = r.choice(speed_lst)
 pause = 0
